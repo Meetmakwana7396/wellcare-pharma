@@ -4,15 +4,20 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Users from "./pages/Users";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/dashboard",
     element: <Dashboard />,
   },
   {
-    path: "/login",
-    element: <Login />,
+    path: "/users",
+    element: <Users />,
   },
 ]);
 

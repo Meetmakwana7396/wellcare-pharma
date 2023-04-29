@@ -7,7 +7,6 @@ import MyForm from "../components/common/MyForm";
 
 const Dashboard = () => {
   return (
-    <>
       <Main>
         <section className="text-gray-600 body-font">
           <div className="container py-4 mx-auto">
@@ -167,7 +166,6 @@ const Dashboard = () => {
 
         <MyForm/>
       </Main>
-    </>
   );
 };
 
