@@ -1,10 +1,77 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { URL, auth_code } from "../../baseurl";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import AuthBanner from "../components/common/AuthBanner";
+import Loader from "../components/common/Loader";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [hasError, setHasError] = useState({
+    email: false,
+    password: false,
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const validate = () => {
+    let isValid = true;
+    if (formData.email === "") {
+      setHasError((prevState) => ({ ...prevState, email: true }));
+      isValid = false;
+    } else {
+      setHasError((prevState) => ({ ...prevState, email: false }));
+    }
+
+    if (formData.password === "") {
+      setHasError((prevState) => ({ ...prevState, password: true }));
+      isValid = false;
+    } else {
+      setHasError((prevState) => ({ ...prevState, password: false }));
+    }
+
+    return isValid;
+  };
+
+  const handleLogin = async () => {
+    if (validate()) {
+      setisLoading(true);
+      axios({
+        method: "post",
+        url: `${URL}api/admin-login`,
+        data: {
+          ...formData,
+          auth_code,
+        },
+      })
+        .then((response) => {
+          toast.success(response.data.message);
+          localStorage.setItem("token", response.data.token);
+          navigate("/dashboard");
+          setisLoading(false);
+        })
+        .catch((error) => {
+          setisLoading(false);
+          toast.error(error.response.data.message);
+        });
+    }
+  };
+
+  useEffect(() => {
+    localStorage.getItem("token") ? navigate("/dashboard") : "";
+  }, []);
+
   return (
     <div className="container">
       <div className="h-screen md:flex">
@@ -14,67 +81,74 @@ const Login = () => {
         />
 
         <div className="h-fit mx-auto my-auto w-[350px]">
-          <form className="bg-white border-primary p-10">
+          <div className="bg-white border-primary p-10">
             <h1 className="text-gray-800 font-bold text-2xl mb-1">
-             Admin Login
+              Admin Login
             </h1>
             <p className="text-sm font-normal text-gray-600 mb-6">
               Welcome Back
             </p>
-
-            <div class="relative z-0 w-full mb-6 group">
+            <div className="mb-3">
+              <label htmlFor="ctnEmail">Email address</label>
               <input
-                type="text"
-                name=""
-                id="floating_last_name"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
+                id="ctnEmail"
+                type="email"
+                name="email"
+                placeholder="name@example.com"
+                className="rounded-md w-[100%] p-2 border-black/20 border-2 outline-none focus:border-primary"
+                onChange={(e) => handleChange(e)}
               />
-              <label
-                for="floating_last_name"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Email Address
-              </label>
-            </div>
-            <div class="relative z-0 w-full mb-6 group">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="floating_last_name"
-                id="floating_last_name"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
-              <label
-                for="floating_last_name"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Password
-              </label>
-              <div className="text-right text-sm pt-1">
-                <span
-                  className={`cursor-pointer ${
-                    showPassword ? "" : "text-primary"
-                  } font-semibold`}
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? "hide" : "show"}
+              {hasError.email ? (
+                <span className="text-danger text-sm font-semibold">
+                  Required
                 </span>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="relative z-0 w-full mb-6 group">
+              <div>
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="****"
+                  className="rounded-md w-[100%] p-2 border-black/20 border-2 outline-none focus:border-primary"
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="flex justify-between text-sm pt-1">
+                  {hasError.password ? (
+                    <span className="text-danger text-md font-semibold">
+                      Required
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  <span
+                    className={`cursor-pointer ${
+                      showPassword ? "" : "text-primary"
+                    } font-semibold`}
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "hide" : "show"}
+                  </span>
+                </div>
               </div>
             </div>
             <button
-              type="submit"
-              onClick={() => navigate("/dashboard")}
-              className="block w-full bg-primary hover:opacity-80 mt-4 py-2.5 rounded-md text-white font-semibold mb-2"
+              type="button"
+              onClick={handleLogin}
+              className={`block w-full bg-primary hover:opacity-80 mt-4 py-2.5 rounded-md text-white font-semibold mb-2 ${
+                isLoading ? "pointer-events-none opacity-80" : ""
+              }`}
             >
-              Login
+              {isLoading ? <Loader /> : "Login"}
             </button>
             <span className="text-sm ml-2 hover:text-primary cursor-pointer">
               Forgot Password ?
             </span>
-          </form>
+          </div>
         </div>
       </div>
     </div>

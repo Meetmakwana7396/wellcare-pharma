@@ -1,9 +1,5 @@
 import React from "react";
-import Header from "../components/common/Sidebar";
 import Main from "../components/common/Main";
-import Sidebar from "../components/common/Sidebar";
-import Table from "../components/common/Table";
-import MyForm from "../components/common/MyForm";
 
 const Dashboard = () => {
   return (
@@ -161,10 +157,6 @@ const Dashboard = () => {
             </div>
           </div>
         </section>
-
-        <Table />
-
-        <MyForm/>
       </Main>
   );
 };

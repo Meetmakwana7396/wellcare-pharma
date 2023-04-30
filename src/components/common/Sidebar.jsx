@@ -32,16 +32,17 @@ const Sidebar = () => {
             </li>
 
             <li>
-              <a
+              <Link
                 href="#"
                 className="flex items-center p-2 rounded-lg text-white hover:bg-white/10"
+                to="/stores"
               >
                <BiStore className="text-[25px]" />
                 <span className="flex-1 ml-3 whitespace-nowrap">Stores</span>
                 <span className="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
                   Pro
                 </span>
-              </a>
+              </Link>
             </li>
             
             <li>
