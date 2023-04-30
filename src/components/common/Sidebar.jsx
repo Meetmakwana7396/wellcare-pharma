@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BiStore, BiGridAlt, BiUser} from "react-icons/bi";
 const Sidebar = () => {
-  const [currentPath, setCurrentPath] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
+  const [currentPath, setCurrentPath] = useState("");
 
   useEffect(() => {
     setCurrentPath(location.pathname);
@@ -24,7 +25,6 @@ const Sidebar = () => {
                   currentPath === "/dashboard" ? "bg-white/10" : ""
                 }`}
                 id="dashboard"
-                // onClick={(e)=>handleSelecredOption(e)}
               >
                 <BiGridAlt className="text-[25px]" />
                 <span className="ml-3">Dashboard</span>
@@ -34,7 +34,9 @@ const Sidebar = () => {
             <li>
               <Link
                 href="#"
-                className="flex items-center p-2 rounded-lg text-white hover:bg-white/10"
+                className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
+                  currentPath === "/stores" ? "bg-white/10" : ""
+                }`}
                 to="/stores"
               >
                <BiStore className="text-[25px]" />
@@ -96,7 +98,7 @@ const Sidebar = () => {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Sign In</span>
+                <span className="flex-1 ml-3 whitespace-nowrap" >Sign In</span>
               </a>
             </li>
             <li>

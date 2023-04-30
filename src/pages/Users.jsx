@@ -62,7 +62,7 @@ const Users = () => {
 
   return (
     <Main>
-      <MyTable data={userData} columns={columns} />
+      <MyTable data={userData} columns={columns} title="Users Details" />
     </Main>
   );
 };

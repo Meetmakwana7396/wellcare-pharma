@@ -56,6 +56,7 @@ const Login = () => {
         },
       })
         .then((response) => {
+          setFormData({...formData, email:"", password:""})
           toast.success(response.data.message);
           localStorage.setItem("token", response.data.token);
           navigate("/dashboard");
@@ -63,7 +64,8 @@ const Login = () => {
         })
         .catch((error) => {
           setisLoading(false);
-          toast.error(error.response.data.message);
+          console.log(error.message);
+          // toast.error(error.response.data.message);
         });
     }
   };
