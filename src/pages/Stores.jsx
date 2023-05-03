@@ -1,11 +1,37 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { BiLoader } from "react-icons/bi";
+import Loader from "../components/common/Loader";
 import { auth_code, URL } from "../../baseurl";
 import Main from "../components/common/Main";
 import MyTable from "../components/common/MyTable";
 
 const Stores = () => {
   const [storeData, setStoreData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const verifyStore = async (id) => {
+    setIsLoading(true);
+    await axios({
+      method: "post",
+      url: `${URL}api/verify-store`,
+      data: {
+        auth_code,
+        store_id: id,
+      },
+    })
+      .then((response) => {
+        setIsLoading(false);
+        toast.success(response.data.message);
+        getStoreData();
+      })
+      .catch((error) => {
+        setIsLoading(false);
+
+        console.log(error);
+      });
+  };
+
   const columns = [
     {
       name: "Username",
@@ -45,6 +71,24 @@ const Stores = () => {
       name: "Pincode",
       selector: (row) => row.pincode,
     },
+    {
+      name: "Action",
+      cell: (row) =>
+        row.is_confirm ? (
+          <button className="text-white p-2 rounded bg-secondary" disabled>
+            Verified
+          </button>
+        ) : (
+          <button
+            className={`text-white w-[64px] text-center py-2 rounded bg-primary ${
+              isLoading ? "pointer-events-none opacity-30" : ""
+            }`}
+            onClick={() => verifyStore(row.id)}
+          >
+            {isLoading ? <Loader /> : "Verify"}
+          </button>
+        ),
+    },
   ];
   const getStoreData = async () => {
     await axios({
@@ -52,7 +96,6 @@ const Stores = () => {
       url: `${URL}api/get-stores?auth_code=${auth_code}`,
     })
       .then((response) => {
-        // console.log(response.data.data);
         setStoreData(response.data.data);
       })
       .catch((error) => {

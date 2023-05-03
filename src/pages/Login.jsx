@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { URL, auth_code } from "../../baseurl";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import AuthBanner from "../components/common/AuthBanner";
 import Loader from "../components/common/Loader";
@@ -65,7 +65,7 @@ const Login = () => {
         .catch((error) => {
           setisLoading(false);
           console.log(error.message);
-          // toast.error(error.response.data.message);
+          toast.error(error.response.data.message);
         });
     }
   };
@@ -147,9 +147,9 @@ const Login = () => {
             >
               {isLoading ? <Loader /> : "Login"}
             </button>
-            <span className="text-sm ml-2 hover:text-primary cursor-pointer">
+            <Link className="text-sm ml-2 hover:text-primary cursor-pointer" to="/reset-password">
               Forgot Password ?
-            </span>
+            </Link>
           </div>
         </div>
       </div>

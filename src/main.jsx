@@ -8,6 +8,8 @@ import Users from "./pages/Users";
 import "./index.css";
 import Stores from "./pages/Stores";
 import ResetPass from "./pages/ResetPass";
+import Profile from "./pages/Profile";
+import NewPassword from "./pages/NewPassword";
 
 const router = createBrowserRouter([
   {
@@ -19,8 +21,16 @@ const router = createBrowserRouter([
     element: <ResetPass />,
   },
   {
+    path: "/new-password",
+    element: <NewPassword />,
+  },
+  {
     path: "/dashboard",
     element: <Dashboard />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
   {
     path: "/users",

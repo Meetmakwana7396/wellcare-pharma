@@ -42,7 +42,7 @@ const Navbar = () => {
           <ul className="py-2 text-sm" aria-labelledby="avatarButton">
             <li>
               <a href="#" className="block px-4 py-2 hover:bg-black/10">
-                Dashboard
+                Profile
               </a>
             </li>
             <li>

@@ -2,10 +2,13 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { URL,auth_code } from "../../baseurl";
+import { useNavigate } from "react-router-dom";
+import { URL, auth_code } from "../../baseurl";
 import Loader from "../components/common/Loader";
+import Modal from "../components/common/Modal";
 
 const ResetPass = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState({
@@ -22,6 +25,26 @@ const ResetPass = () => {
     return isValid;
   };
 
+  const verifyOtp = (otp)=>{
+    axios({
+      method: "post",
+      url: `${URL}api/admin-verify-otp`,
+      data: {
+        email,
+        auth_code,
+        otp,
+      },
+    })
+      .then((response) => {
+        localStorage.setItem("EMAIL", email);
+        navigate("/new-password");
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+  
+
   const handleSubmit = () => {
     if (validate()) {
       setIsLoading(true);
@@ -36,7 +59,15 @@ const ResetPass = () => {
         .then((response) => {
           setIsLoading(false);
           toast.success(response.data.message);
-          //   navigate("/dashboard");
+          setEmail('');
+          setTimeout(() => {
+            var resp = window.prompt("Enter OTP here:");
+            if (resp) {
+              verifyOtp(resp);
+            }else{
+              toast.error("The input is not valid");
+            }
+          }, 1000);
         })
         .catch((error) => {
           setIsLoading(false);
@@ -77,6 +108,16 @@ const ResetPass = () => {
           {isLoading ? <Loader /> : "Verify"}
         </button>
       </div>
+      {/* <Modal show={show} title="Enter OTP">
+        <div>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae sed,
+          necessitatibus neque aliquid, sequi perferendis eos sint vero
+          inventore eum at amet nulla quam ipsam. Soluta nihil molestiae
+          expedita debitis maxime unde accusamus nam fuga ullam neque vero
+          dolores, rerum consectetur itaque dicta culpa quidem doloribus fugit.
+          Officiis, saepe eaque!
+        </div>
+      </Modal> */}
     </div>
   );
 };
