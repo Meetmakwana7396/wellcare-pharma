@@ -40,7 +40,6 @@ const ResetPass = () => {
         navigate("/new-password");
       })
       .catch((error) => {
-        console.log(error.response);
       });
   }
   

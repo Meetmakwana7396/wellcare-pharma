@@ -64,7 +64,6 @@ const Login = () => {
         })
         .catch((error) => {
           setisLoading(false);
-          console.log(error.message);
           toast.error(error.response.data.message);
         });
     }

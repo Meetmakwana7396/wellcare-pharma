@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { BiStore, BiGridAlt, BiUser} from "react-icons/bi";
+import { BiStore, BiGridAlt, BiUser, BiCabinet } from "react-icons/bi";
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,24 +33,19 @@ const Sidebar = () => {
 
             <li>
               <Link
-                href="#"
                 className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
                   currentPath === "/stores" ? "bg-white/10" : ""
                 }`}
                 to="/stores"
               >
-               <BiStore className="text-[25px]" />
+                <BiStore className="text-[25px]" />
                 <span className="flex-1 ml-3 whitespace-nowrap">Stores</span>
-                <span className="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
-                  Pro
-                </span>
               </Link>
             </li>
-            
+
             <li>
               <Link
                 to="/users"
-                href="#"
                 className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
                   currentPath === "/users" ? "bg-white/10" : ""
                 }`}
@@ -60,9 +55,20 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <a
-                href="#"
-                className="flex items-center p-2 rounded-lg text-white hover:bg-white/10"
+              <Link
+                to="/category"
+                className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
+                  currentPath === "/category" ? "bg-white/10" : ""
+                }`}
+              >
+                <BiCabinet className="text-[25px]" />
+                <span className="flex-1 ml-3 whitespace-nowrap">Category</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/category"
+                className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 `}
               >
                 <svg
                   aria-hidden="true"
@@ -78,28 +84,7 @@ const Sidebar = () => {
                   ></path>
                 </svg>
                 <span className="flex-1 ml-3 whitespace-nowrap">Products</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 rounded-lg text-white hover:bg-white/10"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="flex-shrink-0 w-6 h-6  transition duration-75 dark:text-gray-400 group-hover "
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap" >Sign In</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a

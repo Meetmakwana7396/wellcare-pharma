@@ -13,7 +13,7 @@ body {
   padding: 0;
   height: 100vh;
   width: 100%;
-  font-family: 'Pathway Extreme', sans-serif;
+  font-family: "Pathway Extreme", sans-serif;
 }
 
 .sidebar-wrapper {
@@ -46,3 +46,16 @@ body {
   background-color: white;
 }
 
+.form-control {
+  /* className="rounded-md w-[100%] p-2 border-black/20 border-2 outline-none focus:border-primary" */
+  width: 100%;
+  padding: 8px;
+  border-color: rgb(0 0 0 / 0.2);
+  border-radius: 6px;
+  border-width: 2px;
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: #227fbb;
+}

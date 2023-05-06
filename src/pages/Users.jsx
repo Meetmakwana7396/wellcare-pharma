@@ -15,40 +15,34 @@ const Users = () => {
       .then((response) => {
         setUserData(response.data.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 
   const columns = [
     {
       name: "Username",
       selector: (row) => row.user_name,
-      sortable:true,
+      sortable: true,
     },
     {
       name: "Email",
       selector: (row) => row.email,
-      sortable:true,
-
+      sortable: true,
     },
     {
       name: "Contact No",
       selector: (row) => row.contact_number,
-      sortable:true,
-
+      sortable: true,
     },
     {
       name: "City",
       selector: (row) => row.city,
-      sortable:true,
-
+      sortable: true,
     },
     {
       name: "State",
       selector: (row) => row.state,
-      sortable:true,
-
+      sortable: true,
     },
     {
       name: "Pincode",

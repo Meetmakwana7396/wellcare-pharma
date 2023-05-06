@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -41,9 +41,9 @@ const Navbar = () => {
         >
           <ul className="py-2 text-sm" aria-labelledby="avatarButton">
             <li>
-              <a href="#" className="block px-4 py-2 hover:bg-black/10">
+              <Link to="/profile" className="block px-4 py-2 hover:bg-black/10">
                 Profile
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" className="block px-4 py-2 hover:bg-black/10">

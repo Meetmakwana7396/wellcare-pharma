@@ -3,7 +3,6 @@ import { Dialog, Transition } from "@headlessui/react";
 
 const Modal = ({ show, children, title }) => {
     let [isOpen, setIsOpen] = useState(show);
-    console.log(show ,isOpen, "show in modal");
 
   function closeModal() {
     setIsOpen(false);

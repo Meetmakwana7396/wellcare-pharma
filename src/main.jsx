@@ -10,6 +10,7 @@ import Stores from "./pages/Stores";
 import ResetPass from "./pages/ResetPass";
 import Profile from "./pages/Profile";
 import NewPassword from "./pages/NewPassword";
+import Category from "./pages/Category";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/stores",
     element: <Stores />,
+  },
+  {
+    path: "/category",
+    element: <Category />,
   },
 ]);
 

@@ -6,10 +6,13 @@ import Loader from "../components/common/Loader";
 import { auth_code, URL } from "../../baseurl";
 import Main from "../components/common/Main";
 import MyTable from "../components/common/MyTable";
+import OffCanvas from "../components/common/OffCanvas";
 
 const Stores = () => {
   const [storeData, setStoreData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  
   const verifyStore = async (id) => {
     setIsLoading(true);
     await axios({
@@ -28,7 +31,6 @@ const Stores = () => {
       .catch((error) => {
         setIsLoading(false);
 
-        console.log(error);
       });
   };
 
@@ -99,7 +101,6 @@ const Stores = () => {
         setStoreData(response.data.data);
       })
       .catch((error) => {
-        console.log(error);
       });
   };
   useEffect(() => {
