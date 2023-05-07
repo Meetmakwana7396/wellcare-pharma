@@ -16,7 +16,7 @@ const Navbar = () => {
   });
 
   return (
-    <div className="navbar px-3 py-1 grid grid-cols-3 gap-4">
+    <div className="navbar px-3 py-1 grid grid-cols-3 gap-4 z-50 sticky top-0">
       <div className="flex justify-start items-center">
         <h1 className="text-lg">Wellcare Admin</h1>
       </div>
@@ -35,7 +35,7 @@ const Navbar = () => {
         {/* <!-- Dropdown menu --> */}
         <div
           id="userDropdown"
-          className={`z-10 top-[55px] absolute  shadow-md bg-white divide-y divide-gray-100 rounded-lg w-44 ${
+          className={`z-10 top-[55px] absolute  shadow-md bg-white divide-y divide-secondary/50 rounded-lg w-44 ${
             showMenu ? "" : "hidden"
           }`}
         >

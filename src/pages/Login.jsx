@@ -56,8 +56,7 @@ const Login = () => {
         },
       })
         .then((response) => {
-          setFormData({...formData, email:"", password:""})
-          toast.success(response.data.message);
+          setFormData({ ...formData, email: "", password: "" });
           localStorage.setItem("token", response.data.token);
           navigate("/dashboard");
           setisLoading(false);
@@ -96,7 +95,7 @@ const Login = () => {
                 type="email"
                 name="email"
                 placeholder="name@example.com"
-                className="rounded-md w-[100%] p-2 border-black/20 border-2 outline-none focus:border-primary"
+                className="form-control"
                 onChange={(e) => handleChange(e)}
               />
               {hasError.email ? (
@@ -115,7 +114,7 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="****"
-                  className="rounded-md w-[100%] p-2 border-black/20 border-2 outline-none focus:border-primary"
+                  className="form-control"
                   onChange={(e) => handleChange(e)}
                 />
                 <div className="flex justify-between text-sm pt-1">
@@ -146,7 +145,10 @@ const Login = () => {
             >
               {isLoading ? <Loader /> : "Login"}
             </button>
-            <Link className="text-sm ml-2 hover:text-primary cursor-pointer" to="/reset-password">
+            <Link
+              className="text-sm ml-2 hover:text-primary cursor-pointer"
+              to="/reset-password"
+            >
               Forgot Password ?
             </Link>
           </div>

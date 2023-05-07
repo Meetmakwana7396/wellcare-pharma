@@ -7,6 +7,7 @@ import MyTable from "../components/common/MyTable";
 
 const Users = () => {
   const [userData, setUserData] = useState([]);
+  
   const getUserData = async () => {
     await axios({
       method: "get",

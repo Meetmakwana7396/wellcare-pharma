@@ -10,6 +10,12 @@ const MyTable = (props) => {
         data={data}
         title={title || ""}
         pagination
+        customStyles={{
+          table: {
+            zIndex: 10, // Adjust the desired z-index value here
+            backgroundColor: "blue",
+          },
+        }}
       />
     </div>
   );

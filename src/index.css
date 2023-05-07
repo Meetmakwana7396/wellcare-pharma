@@ -47,13 +47,14 @@ body {
 }
 
 .form-control {
-  /* className="rounded-md w-[100%] p-2 border-black/20 border-2 outline-none focus:border-primary" */
   width: 100%;
   padding: 8px;
-  border-color: rgb(0 0 0 / 0.2);
+  border-color: rgb(0 0 0 / 0.1);
   border-radius: 6px;
   border-width: 2px;
   outline: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .form-control:focus {

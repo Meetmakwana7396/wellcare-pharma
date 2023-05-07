@@ -11,6 +11,8 @@ import ResetPass from "./pages/ResetPass";
 import Profile from "./pages/Profile";
 import NewPassword from "./pages/NewPassword";
 import Category from "./pages/Category";
+import Disease from "./pages/Disease";
+import Products from "./pages/Products";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
   {
     path: "/category",
     element: <Category />,
+  },
+  {
+    path: "/disease",
+    element: <Disease />,
+  },
+  {
+    path: "/products",
+    element: <Products />,
   },
 ]);
 
