@@ -16,16 +16,16 @@ const OffCanvas = ({ children, isOpen, onClose, title }) => {
           onClick={handleClose}
         >
           <div
-            className="fixed top-0 right-0 bottom-0 w-[400px] bg-white text shadow-lg z-50 transform transition-transform duration-300 ease-out"
+            className="fixed top-0 right-0 bottom-0 w-[400px] bg-white text shadow-lg z-50 transform transition-transform duration-300 ease-out overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
             style={{ transform: "translateX(0%)" }}
           >
             <BiX
-              className="text-[35px] ml-auto cursor-pointer hover:text-danger"
+              className="text-[30px] ml-auto cursor-pointer hover:text-danger absolute top-2 bg-black/20 rounded-full right-2"
               onClick={handleClose}
             />
             <div className="px-5">
-              <p className="text-2xl font-semibold">{title || ""}</p>
+              <p className="text-2xl font-semibold mt-2">{title || ""}</p>
               {children}
             </div>
           </div>
