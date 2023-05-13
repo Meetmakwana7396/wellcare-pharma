@@ -50,17 +50,16 @@ const Category = () => {
     }
   };
 
-  const getCategoryList = useCallback(async () => {
-    await axios({
+  const getCategoryList = () => {
+    axios({
       method: "get",
       url: `${URL}api/category/get?auth_code=${auth_code}`,
     })
       .then((response) => {
         setCategoryData(response.data.data);
       })
-      .catch((error) => {
-      });
-  }, [URL, auth_code]);
+      .catch((error) => {});
+  };
 
   const deleteCategory = async (id) => {
     await axios({
@@ -75,8 +74,7 @@ const Category = () => {
         toast.success(response.data.message);
         getCategoryList();
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
   };
 
   const columns = [

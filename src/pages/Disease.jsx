@@ -10,7 +10,7 @@ import OffCanvas from "../components/common/OffCanvas";
 
 const Disease = () => {
   const [show, setShow] = useState(false);
-  const [categoryData, setCategoryData] = useState([]);
+  const [diseaseData, setDiseaseData] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [diseaseName, setDiseaseName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -50,16 +50,16 @@ const Disease = () => {
     }
   };
 
-  const getDiseaseList = useCallback(async () => {
-    await axios({
+  const getDiseaseList = () => {
+    axios({
       method: "get",
       url: `${URL}api/disease/get?auth_code=${auth_code}`,
     })
       .then((response) => {
-        setCategoryData(response.data.data);
+        setDiseaseData(response.data.data);
       })
       .catch((error) => {});
-  }, [URL, auth_code]);
+  };
 
   const deleteCategory = async (id) => {
     await axios({
@@ -116,7 +116,7 @@ const Disease = () => {
           Add
         </button>
       </div>
-      <MyTable title="Diseases" data={categoryData} columns={columns} />
+      <MyTable title="Diseases" data={diseaseData} columns={columns} />
       <OffCanvas
         isOpen={show}
         title="Add New Disease"
