@@ -81,7 +81,6 @@ const Products = () => {
         key !== "company_contact_no" &&
         key !== "location"
       ) {
-        console.log(key, "prblem");
         errors[key] = "This field is required.";
       }
     }
@@ -237,21 +236,32 @@ const Products = () => {
               isLoading ? "pointer-events-none opacity-30" : ""
             }`}
             onClick={() => {
-              setFormData((prevFormData) => ({
-                ...prevFormData,
-                medicin_name: row.medicin_name,
-                medicin_description: row.medicin_description,
-                medicin_img_url: row.medicin_img_url,
-                price: row.price,
-                quantity: row.quantity,
-                manufacture_date: row.manufacture_date,
-                expire_date: row.expire_date,
-                category_id: row.category_id,
-                disease_id: row.disease_id,
-                medicin_pharma_company_id: row.medicin_pharma_company_id,
-                discount: row.discount,
-              }));
-              setShow(true);
+              console.log(row.medicin_name,"to");
+              console.log(row.medicin_description);
+              console.log(row.medicin_img_url);
+              console.log(row.price);
+              console.log(row?.quantity);
+              console.log(row.manufacture_date);
+              console.log(row.expire_date);
+              console.log(row.category_id);
+              console.log(row.disease_id);
+              console.log(row.medicin_pharma_company_id);
+              console.log(row.discount);
+              // setFormData((prevFormData) => ({
+              //   ...prevFormData,
+              //   medicin_name: row.medicin_name,
+              //   medicin_description: row.medicin_description,
+              //   medicin_img_url: row.medicin_img_url,
+              //   price: row.price,
+              //   quantity: row?.quantity,
+              //   manufacture_date: row.manufacture_date,
+              //   expire_date: row.expire_date,
+              //   category_id: row.category_id,
+              //   disease_id: row.disease_id,
+              //   medicin_pharma_company_id: row.medicin_pharma_company_id,
+              //   discount: row.discount,
+              // }));
+              // setShow(true);
             }}
           >
             Edit
@@ -413,6 +423,7 @@ const Products = () => {
 
           <div className="py-4">
             <label htmlFor="category_name">Medicin Category:</label>
+            {console.log(formData.category_id || "")}
             <select
               name="category_id"
               value={formData.category_id || ""}

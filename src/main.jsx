@@ -13,6 +13,9 @@ import NewPassword from "./pages/NewPassword";
 import Category from "./pages/Category";
 import Disease from "./pages/Disease";
 import Products from "./pages/Products";
+import StoreLogin from "./pages/store/StoreLogin";
+import StoreSignup from "./pages/store/StoreSignup";
+import StoreDashboard from "./pages/store/StoreDashboard";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,20 @@ const router = createBrowserRouter([
   {
     path: "/products",
     element: <Products />,
+  },
+
+  // Store Routes 
+  {
+    path: "/store-login",
+    element: <StoreLogin />,
+  },
+  {
+    path: "/store-signup",
+    element: <StoreSignup />,
+  },
+  {
+    path: "/store-dashboard",
+    element: <StoreDashboard />,
   },
 ]);
 

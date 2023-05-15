@@ -1,9 +1,9 @@
 import React from "react";
 
 const AuthBanner = (props) => {
-    const {title , slogan} = props;
+    const {title , slogan, bgcolor} = props;
   return (
-    <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr bg-primary justify-around items-center hidden">
+    <div className={`relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr ${bgcolor || 'bg-black'} justify-around items-center hidden`}>
       <div className="w-[450px]">
         <h1 className="text-white font-bold text-4xl/normal">{title || ""}</h1>
         <p className="text-white mt-1">

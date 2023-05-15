@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { URL, auth_code } from "../../baseurl";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import AuthBanner from "../components/common/AuthBanner";
-import Loader from "../components/common/Loader";
 import axios from "axios";
+import { URL, auth_code } from "../../../baseurl";
+import AuthBanner from "../../components/common/AuthBanner";
+import Loader from "../../components/common/Loader";
 
-const Login = () => {
+const StoreLogin = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setisLoading] = useState(false);
@@ -49,7 +49,7 @@ const Login = () => {
       setisLoading(true);
       axios({
         method: "post",
-        url: `${URL}api/admin-login`,
+        url: `${URL}api/store-login`,
         data: {
           ...formData,
           auth_code,
@@ -57,9 +57,10 @@ const Login = () => {
       })
         .then((response) => {
           setFormData({ ...formData, email: "", password: "" });
-          localStorage.setItem("token", response.data.token);
-          navigate("/dashboard");
+          localStorage.setItem("store_token", response.data.token);
+          navigate("/store-dashboard");
           setisLoading(false);
+          // console.log(response.data);
         })
         .catch((error) => {
           setisLoading(false);
@@ -69,7 +70,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    localStorage.getItem("token") ? navigate("/dashboard") : "";
+    localStorage.getItem("store_token") ? navigate("/store-dashboard") : "";
   }, []);
 
   return (
@@ -77,12 +78,12 @@ const Login = () => {
       <AuthBanner
         title={"Welcome to WellcarePharma"}
         slogan="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium, nam?"
-        bgcolor="bg-primary"
+        bgcolor="bg-success"
       />
 
       <div className="h-fit mx-auto my-auto w-[350px]">
-        <div className="bg-white border-primary p-10">
-          <h1 className="text-gray-800 font-bold text-2xl mb-1">Admin Login</h1>
+        <div className="bg-white border-success p-10">
+          <h1 className="text-gray-800 font-bold text-2xl mb-1">Store Login</h1>
           <p className="text-sm font-normal text-gray-600 mb-6">Welcome Back</p>
           <div className="mb-3">
             <label htmlFor="ctnEmail">Email address</label>
@@ -123,7 +124,7 @@ const Login = () => {
                 )}
                 <span
                   className={`cursor-pointer ${
-                    showPassword ? "" : "text-primary"
+                    showPassword ? "" : "text-success"
                   } font-semibold`}
                   onClick={() => setShowPassword(!showPassword)}
                 >
@@ -135,22 +136,34 @@ const Login = () => {
           <button
             type="button"
             onClick={handleLogin}
-            className={`block w-full bg-primary hover:opacity-80 mt-4 py-2.5 rounded-md text-white font-semibold mb-2 ${
+            className={`block w-full bg-success hover:opacity-80 mt-4 py-2.5 rounded-md text-white font-semibold mb-2 ${
               isLoading ? "pointer-events-none opacity-80" : ""
             }`}
           >
             {isLoading ? <Loader /> : "Login"}
           </button>
           <Link
-            className="text-sm ml-2 hover:text-primary cursor-pointer"
+            className="text-sm ml-2 hover:text-success cursor-pointer"
             to="/reset-password"
           >
             Forgot Password ?
           </Link>
+          <div className="text-center mt-10">
+            <p className="mx-auto text-sm">
+              Don't Have Account?
+              <Link
+                to="/store-signup"
+                className="hover:underline text-success font-semibold cursor-pointer"
+              >
+                {" "}
+                Signup
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default StoreLogin;

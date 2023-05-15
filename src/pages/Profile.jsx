@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
+import { uploadImage, URL } from "../../baseurl";
 import Loader from "../components/common/Loader";
 import Main from "../components/common/Main";
 
@@ -11,7 +12,15 @@ const Profile = () => {
 
   const handleProfilePicChange = (event) => {
     const file = event.target.files[0];
-    setprofile_pic(file.name);
+    uploadImage(file)
+      .then((data) => {
+        // Handle successful response data
+        setprofile_pic(data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.log(error);
+      });
     setProfilePic(URL.createObjectURL(file));
   };
 
@@ -22,24 +31,18 @@ const Profile = () => {
   const handleProfileUpdate = useCallback(async () => {
     setIsLoading(true);
     await axios({
-      method: "post",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
+      method: "post",     
       url: `${URL}api/admin/update-details`,
       data: {
         user_name: username,
         profile_pic,
       },
     })
-      .then((response) => {
-      })
+      .then((response) => {})
       .catch((error) => {
         setIsLoading(false);
       });
   });
-
-
 
   return (
     <Main>
