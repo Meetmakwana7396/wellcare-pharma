@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  BiStore,
   BiGridAlt,
-  BiUser,
-  BiCabinet,
   BiInjection,
   BiCubeAlt,
+  BiCapsule,
+  BiArchive,
+  BiCartDownload,
 } from "react-icons/bi";
+import axios from "axios";
+import { URL } from "../../../../baseurl";
 
 const StoreSidebar = () => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-
+  
   useEffect(() => {
     setCurrentPath(location.pathname);
   }, [location]);
@@ -27,9 +29,9 @@ const StoreSidebar = () => {
           <ul className="space-y-2 font-medium">
             <li>
               <Link
-                to="/dashboard"
+                to="/store-dashboard"
                 className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
-                  currentPath === "/dashboard" ? "bg-white/10" : ""
+                  currentPath === "/store-dashboard" ? "bg-white/10" : ""
                 }`}
                 id="dashboard"
               >
@@ -41,35 +43,37 @@ const StoreSidebar = () => {
             <li>
               <Link
                 className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
-                  currentPath === "/stores" ? "bg-white/10" : ""
+                  currentPath === "/store-medicins" ? "bg-white/10" : ""
                 }`}
-                to="/stores"
+                to="/store-medicins"
               >
-                <BiStore className="text-[25px]" />
-                <span className="flex-1 ml-3 whitespace-nowrap">Stores</span>
+                <BiCapsule className="text-[25px]" />
+                <span className="flex-1 ml-3 whitespace-nowrap">Medicins</span>
               </Link>
             </li>
 
             <li>
               <Link
-                to="/users"
                 className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
-                  currentPath === "/users" ? "bg-white/10" : ""
+                  currentPath === "/owned-medicins" ? "bg-white/10" : ""
                 }`}
+                to="/owned-medicins"
               >
-                <BiUser className="text-[25px]" />
-                <span className="flex-1 ml-3 whitespace-nowrap">Users</span>
+                <BiArchive className="text-[25px]" />
+                <span className="flex-1 ml-3 whitespace-nowrap">
+                  My Medicins
+                </span>
               </Link>
             </li>
             <li>
               <Link
-                to="/category"
+                to="/store-orders"
                 className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
-                  currentPath === "/category" ? "bg-white/10" : ""
+                  currentPath === "/store-orders" ? "bg-white/10" : ""
                 }`}
               >
-                <BiCabinet className="text-[25px]" />
-                <span className="flex-1 ml-3 whitespace-nowrap">Category</span>
+                <BiCartDownload className="text-[25px]" />
+                <span className="flex-1 ml-3 whitespace-nowrap">Orders</span>
               </Link>
             </li>
             <li>

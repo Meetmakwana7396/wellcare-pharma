@@ -1,13 +1,40 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { URL } from "../../../../baseurl";
 
 const StoreNavbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  const [profileDetails, setProfileDetails] = useState("");
 
   const handleMenuVisibility = () => {
     setShowMenu(!showMenu);
   };
+
+  const getProfileDetail = () => {
+    axios({
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("store_token")}`,
+      },
+      method: "get",
+      url: `${URL}store/get-profile`,
+    })
+      .then((response) => {
+        setProfileDetails(response.data.data);
+        console.log(response.data.data, "profile data");
+      })
+      .catch((error) => {
+        console.log(error, "kkooll");
+      });
+  };
+
+  useEffect(() => {
+    if (!profileDetails) {
+      getProfileDetail();
+    }
+  }, []);
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -18,15 +45,14 @@ const StoreNavbar = () => {
   return (
     <div className="navbar px-3 py-1 grid grid-cols-3 gap-4 z-50 sticky top-0">
       <div className="flex justify-start items-center">
-        <h1 className="text-lg">Wellcare Admin</h1>
+        <h1 className="text-lg">Welcome {profileDetails?.user_name}</h1>
       </div>
       <div className="col-span-2 flex justify-end">
         <img
           id="avatarButton"
           type="button"
           onClick={handleMenuVisibility}
-          dataDropdownToggle="userDropdown"
-          dataDropdownPlacement="bottom-start"
+          datadropdownplacement="userDropdown"
           className="w-10 h-10 rounded-full cursor-pointer"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXFBOfk-8mYVPpg23ixdQ8WfID6Jy23Kw_aTy-NcZmhA&s"
           alt="User dropdown"

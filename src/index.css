@@ -68,6 +68,27 @@ body {
 
 /* For IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.status {
+  @apply p-2 bg-primary/20  rounded capitalize;
+}
+
+.status.pending {
+  @apply bg-secondary/20 text-secondary;
+}
+
+.status.packed {
+  @apply bg-warning/20 text-warning;
+}
+
+.status.shipped {
+  @apply bg-primary/20 text-primary;
+}
+
+.status.delivered {
+  @apply bg-success/20 text-success;
+
 }

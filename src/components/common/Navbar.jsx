@@ -25,8 +25,8 @@ const Navbar = () => {
           id="avatarButton"
           type="button"
           onClick={handleMenuVisibility}
-          dataDropdownToggle="userDropdown"
-          dataDropdownPlacement="bottom-start"
+          datadropdowntoggle="userDropdown"
+          datadropdownplacement="bottom-start"
           className="w-10 h-10 rounded-full cursor-pointer"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXFBOfk-8mYVPpg23ixdQ8WfID6Jy23Kw_aTy-NcZmhA&s"
           alt="User dropdown"

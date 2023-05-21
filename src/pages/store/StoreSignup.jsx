@@ -5,6 +5,7 @@ import axios from "axios";
 import { URL, auth_code } from "../../../baseurl";
 import AuthBanner from "../../components/common/AuthBanner";
 import Loader from "../../components/common/Loader";
+import { BiPlusCircle } from "react-icons/bi";
 
 const defaultParams = {
   username: "",
@@ -82,20 +83,22 @@ const StoreSignup = () => {
   }, []);
 
   return (
-    <div className="h-fit md:flex overflow-auto">
+    <div className="h-screen md:flex">
       <AuthBanner
         title={"Welcome to WellcarePharma"}
         slogan="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium, nam?"
         bgcolor="bg-success"
       />
 
-      <div className="h-fit  mx-auto my-auto w-[450px]">
-        <div className="bg-white h-fit overflow-y-auto scroll-smooth scrollbar-hide">
+      <div className="h-screen mx-auto flex overflow-y-auto px-4 justify-center items-center">
+        <div className="bg-white w-[450px] ">
+          {" "}
           <h1 className="text-gray-800 font-bold text-2xl mb-1">
             Store Signup
           </h1>
-          <p className="text-sm font-normal text-gray-600 mb-6">Welcome Back</p>
-
+          <p className="text-sm font-normal text-gray-600 mb-6">
+            Signup to Store to get Started
+          </p>
           <div className="mb-3">
             <label htmlFor="ctnEmail">Username:</label>
             <input
@@ -256,7 +259,24 @@ const StoreSignup = () => {
               </span>
             </div>
           </div>
-
+          <div className="relative z-0 w-full mb-6">
+            <label htmlFor="">Store Picture</label>
+            <div className="flex items-center">
+              <label
+                htmlFor="store_image"
+                className="h-20 w-20 rounded border-black/10 shadow-md border flex justify-center items-center cursor-pointer shadow-md"
+              >
+                <BiPlusCircle className="text-black/40" />
+              </label>
+              <input
+                type="file"
+                name="picture"
+                id="store_image"
+                className="hidden"
+                onChange={handleChange}
+              />handleChange
+            </div>
+          </div>
           <button
             type="button"
             onClick={handleSignup}

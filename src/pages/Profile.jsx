@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import { uploadImage, URL } from "../../baseurl";
+import { uploadImage, auth_code } from "../../baseurl";
+import { URL as url } from "../../baseurl";
+
 import Loader from "../components/common/Loader";
 import Main from "../components/common/Main";
 
@@ -31,14 +33,20 @@ const Profile = () => {
   const handleProfileUpdate = useCallback(async () => {
     setIsLoading(true);
     await axios({
-      method: "post",     
-      url: `${URL}api/admin/update-details`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "post",
+      url: `${url}api/admin/update-details`,
       data: {
         user_name: username,
         profile_pic,
+        auth_code,
       },
     })
-      .then((response) => {})
+      .then((response) => {
+        setIsLoading(false);
+      })
       .catch((error) => {
         setIsLoading(false);
       });

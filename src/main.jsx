@@ -16,6 +16,12 @@ import Products from "./pages/Products";
 import StoreLogin from "./pages/store/StoreLogin";
 import StoreSignup from "./pages/store/StoreSignup";
 import StoreDashboard from "./pages/store/StoreDashboard";
+import StoreMedicin from "./pages/store/StoreMedicin";
+import StoreMedicinDetails from "./pages/store/StoreMedicinDetails";
+import NotFound from "./pages/NotFound";
+import StoreOwnMedicin from "./pages/store/StoreOwnMedicin";
+import StoreOrders from "./pages/store/StoreOrders";
+import OrderDetails from "./pages/store/OrderDetails";
 
 const router = createBrowserRouter([
   {
@@ -59,7 +65,7 @@ const router = createBrowserRouter([
     element: <Products />,
   },
 
-  // Store Routes 
+  // Store Routes
   {
     path: "/store-login",
     element: <StoreLogin />,
@@ -71,6 +77,31 @@ const router = createBrowserRouter([
   {
     path: "/store-dashboard",
     element: <StoreDashboard />,
+  },
+  {
+    path: "/store-medicins",
+    element: <StoreMedicin />,
+  },
+
+  {
+    path: "/store-medicins/:medID",
+    element: <StoreMedicinDetails />,
+  },
+  {
+    path: "/owned-medicins",
+    element: <StoreOwnMedicin />,
+  },
+  {
+    path: "/store-orders",
+    element: <StoreOrders />,
+  },
+  {
+    path: "/store-orders/order-details",
+    element: <OrderDetails />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
