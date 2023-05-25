@@ -9,6 +9,25 @@ import { formatDate } from "../components/helper/libs";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-hot-toast";
 
+const defaultParams = {
+  medicin_name: "",
+  medicin_description: "",
+  medicin_img_url: "",
+  price: "",
+  quantity: "",
+  manufacture_date: "",
+  expire_date: "",
+  category_id: "",
+  disease_id: "",
+  new_pharma: false,
+  company_name: "",
+  company_email: "",
+  company_contact_no: "",
+  location: "",
+  medicin_pharma_company_id: 0,
+  discount: "",
+};
+
 const Products = () => {
   const [productsList, setProductsList] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
@@ -17,24 +36,7 @@ const Products = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
-  const [formData, setFormData] = useState({
-    medicin_name: "",
-    medicin_description: "",
-    medicin_img_url: "",
-    price: "",
-    quantity: "",
-    manufacture_date: "",
-    expire_date: "",
-    category_id: "",
-    disease_id: "",
-    new_pharma: false,
-    company_name: "",
-    company_email: "",
-    company_contact_no: "",
-    location: "",
-    medicin_pharma_company_id: 0,
-    discount: "",
-  });
+  const [formData, setFormData] = useState(defaultParams);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -107,7 +109,7 @@ const Products = () => {
           toast.success(response.data.message);
           getProductsList();
           setShow(false);
-          setFormData({});
+          setFormData(defaultParams);
           // setIsLoading(false);
           // setProductsList(response.data.data);
         })
@@ -236,7 +238,7 @@ const Products = () => {
               isLoading ? "pointer-events-none opacity-30" : ""
             }`}
             onClick={() => {
-              // console.log(row.medicin_name,"to");
+              console.log(row, "row");
               // console.log(row.medicin_description);
               // console.log(row.medicin_img_url);
               // console.log(row.price);
@@ -253,9 +255,9 @@ const Products = () => {
                 medicin_description: row.medicin_description,
                 medicin_img_url: row.medicin_img_url,
                 price: row.price,
-                quantity: row?.quantity,
-                manufacture_date: row.manufacture_date,
-                expire_date: row.expire_date,
+                quantity: row?.quantity_unit,
+                manufacture_date: row.manufacture_date.split("T")[0],
+                expire_date: row.expire_date.split("T")[0],
                 category_id: row.category_id,
                 disease_id: row.disease_id,
                 medicin_pharma_company_id: row.medicin_pharma_company_id,
@@ -279,6 +281,7 @@ const Products = () => {
           onClick={() => {
             setShow(true);
             getPharmaCompany();
+            setFormData(defaultParams);
           }}
         >
           Add

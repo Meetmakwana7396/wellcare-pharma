@@ -22,6 +22,7 @@ import NotFound from "./pages/NotFound";
 import StoreOwnMedicin from "./pages/store/StoreOwnMedicin";
 import StoreOrders from "./pages/store/StoreOrders";
 import OrderDetails from "./pages/store/OrderDetails";
+import StoreProfile from "./pages/store/StoreProfile";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
   {
     path: "/store-orders/order-details",
     element: <OrderDetails />,
+  },
+  {
+    path: "/store-profile",
+    element: <StoreProfile />,
   },
   {
     path: "*",

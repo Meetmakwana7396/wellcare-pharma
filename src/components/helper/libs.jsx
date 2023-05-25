@@ -15,14 +15,14 @@ export const toIndianCurrency = (price) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return `₹${formattedPrice}`;
 };
+export const statusMap = [
+  { key: "1", value: "pending" },
+  { key: "2", value: "packed" },
+  { key: "3", value: "shipped" },
+  { key: "4", value: "delivered" },
+];
 
-export const getOrderStatus = (id) => {
-  const statusMap = {
-    1: "pending",
-    2: "packed",
-    3: "shipped",
-    4: "delivered",
-  };
-
-  return statusMap[id] || "";
-};
+export function getOrderStatus(key) {
+  const statusObject = statusMap.find((status) => status.key == key);
+  return statusObject ? statusObject.value : null;
+}

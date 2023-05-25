@@ -14,7 +14,7 @@ import { URL } from "../../../../baseurl";
 const StoreSidebar = () => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
-  
+
   useEffect(() => {
     setCurrentPath(location.pathname);
   }, [location]);
@@ -74,28 +74,6 @@ const StoreSidebar = () => {
               >
                 <BiCartDownload className="text-[25px]" />
                 <span className="flex-1 ml-3 whitespace-nowrap">Orders</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/disease"
-                className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
-                  currentPath === "/disease" ? "bg-white/10" : ""
-                }`}
-              >
-                <BiInjection className="text-[25px]" />
-                <span className="flex-1 ml-3 whitespace-nowrap">Disease</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/products"
-                className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
-                  currentPath === "/products" ? "bg-white/10" : ""
-                }`}
-              >
-                <BiCubeAlt className="text-[25px]" />
-                <span className="flex-1 ml-3 whitespace-nowrap">Products</span>
               </Link>
             </li>
           </ul>
