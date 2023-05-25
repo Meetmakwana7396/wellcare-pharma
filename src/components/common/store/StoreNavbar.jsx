@@ -23,7 +23,6 @@ const StoreNavbar = () => {
     })
       .then((response) => {
         setProfileDetails(response.data.data);
-        console.log(response.data.data, "profile data");
       })
       .catch((error) => {
         console.log(error, "kkooll");
@@ -67,7 +66,10 @@ const StoreNavbar = () => {
         >
           <ul className="py-2 text-sm" aria-labelledby="avatarButton">
             <li>
-              <Link to="/profile" className="block px-4 py-2 hover:bg-black/10">
+              <Link
+                to="/store-profile"
+                className="block px-4 py-2 hover:bg-black/10"
+              >
                 Profile
               </Link>
             </li>
