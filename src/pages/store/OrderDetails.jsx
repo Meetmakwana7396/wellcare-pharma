@@ -1,14 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import { URL } from "../../../baseurl";
 import StoreMain from "../../components/common/store/StoreMain";
-import {
-  getOrderStatus,
-  statusMap,
-  toIndianCurrency,
-} from "../../components/helper/libs";
+import { statusMap, toIndianCurrency } from "../../components/helper/libs";
 
 const OrderDetails = () => {
   const location = useLocation();

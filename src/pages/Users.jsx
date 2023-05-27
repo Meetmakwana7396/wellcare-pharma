@@ -33,7 +33,6 @@ const Users = () => {
     {
       name: "Contact No",
       selector: (row) => row.contact_number,
-      sortable: true,
     },
     {
       name: "City",

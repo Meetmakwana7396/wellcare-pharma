@@ -35,7 +35,7 @@ const StoreMedicinDetails = () => {
   return (
     <StoreMain>
       {/* <MyTable title="Medicins" data={medicinList} columns={columns} /> */}
-      <h1 className="text-2xl font-semibold mb-5">Medicin Details</h1>
+      <h1 className="text-2xl font-semibold mb-5 ml-4">Medicin Details</h1>
       <div className="grid grid-cols-4 gap-6 p-4">
         <div>
           <h2 className="text-lg font-semibold">Name</h2>
@@ -77,7 +77,7 @@ const StoreMedicinDetails = () => {
         <div>
           <h2 className="text-lg font-semibold">Discount</h2>
           <p className="text-gray-500">
-            {medicinDetails?.discount && medicinDetails?.discount}
+            {medicinDetails?.discount && medicinDetails?.discount}%
           </p>
         </div>
 

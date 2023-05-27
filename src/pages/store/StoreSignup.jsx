@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { URL, auth_code } from "../../../baseurl";
+import { URL as url, uploadImage } from "../../../baseurl";
 import AuthBanner from "../../components/common/AuthBanner";
 import Loader from "../../components/common/Loader";
 import { BiPlusCircle } from "react-icons/bi";
@@ -17,6 +17,7 @@ const defaultParams = {
   state: "",
   pincode: "",
   password: "",
+  picture: "",
 };
 
 const StoreSignup = () => {
@@ -25,12 +26,29 @@ const StoreSignup = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setisLoading] = useState(false);
   const [formData, setFormData] = useState(defaultParams);
+  const [picture, setPicture] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+
+    uploadImage(file)
+      .then((data) => {
+        // Handle successful response data
+        setFormData({ ...formData, picture: data });
+        console.log(file,"file");
+        setPicture(URL.createObjectURL(file));
+      })
+      .catch((error) => {
+        // Handle error
+        console.log(error);
+      });
   };
 
   function validateForm(formData) {
@@ -60,7 +78,7 @@ const StoreSignup = () => {
       setisLoading(true);
       axios({
         method: "post",
-        url: `${URL}api/store-register`,
+        url: `${url}api/store-register`,
         data: {
           ...formData,
         },
@@ -264,7 +282,7 @@ const StoreSignup = () => {
             <div className="flex items-center">
               <label
                 htmlFor="store_image"
-                className="h-20 w-20 rounded border-black/10 shadow-md border flex justify-center items-center cursor-pointer shadow-md"
+                className="h-20 w-20 mt-1 rounded border-black/10 border flex justify-center items-center cursor-pointer shadow-md"
               >
                 <BiPlusCircle className="text-black/40" />
               </label>
@@ -273,8 +291,9 @@ const StoreSignup = () => {
                 name="picture"
                 id="store_image"
                 className="hidden"
-                onChange={handleChange}
-              />handleChange
+                value={picture || null}
+                onChange={handleImageChange}
+              />
             </div>
           </div>
           <button

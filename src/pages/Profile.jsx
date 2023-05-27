@@ -52,6 +52,28 @@ const Profile = () => {
       });
   });
 
+  // TODO
+  // const getProfileDetails = () => {
+  //   await axios({
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
+  //     method: "post",
+  //     url: `${url}api/admin/update-details`,
+  //     data: {
+  //       user_name: username,
+  //       profile_pic,
+  //       auth_code,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setIsLoading(false);
+  //     });
+  // };
+
   return (
     <Main>
       <div className="flex bg-white rounded-md p-5 w-fit mx-auto">

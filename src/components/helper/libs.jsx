@@ -15,6 +15,7 @@ export const toIndianCurrency = (price) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return `₹${formattedPrice}`;
 };
+
 export const statusMap = [
   { key: "1", value: "pending" },
   { key: "2", value: "packed" },

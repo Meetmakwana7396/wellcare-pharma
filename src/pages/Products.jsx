@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { auth_code, URL } from "../../baseurl";
+import { auth_code, uploadImage, URL } from "../../baseurl";
 import Main from "../components/common/Main";
 import MyTable from "../components/common/MyTable";
 import OffCanvas from "../components/common/OffCanvas";
-import { formatDate } from "../components/helper/libs";
+import { formatDate, toIndianCurrency } from "../components/helper/libs";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-hot-toast";
 
@@ -37,11 +37,29 @@ const Products = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(defaultParams);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [profile_pic, setprofile_pic] = useState("");
+  const [profilePic, setProfilePic] = useState("");
+
+  const handleProfilePicChange = (event) => {
+    const file = event.target.files[0];
+    uploadImage(file)
+      .then((data) => {
+        // Handle successful response data
+        console.log(data);
+        setprofile_pic(data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.log(error);
+      });
+    setProfilePic(URL.createObjectURL(file));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "new_pharma") {
-      console.log(e.target.checked);
       setFormData((prevFormData) => ({
         ...prevFormData,
         [name]: e.target.checked,
@@ -89,7 +107,6 @@ const Products = () => {
     if (Object.keys(errors).length === 0) {
       return true;
     } else {
-      console.log(errors, "errors");
       setErrors(errors);
       return false;
     }
@@ -98,12 +115,11 @@ const Products = () => {
   const addProduct = (e) => {
     e.preventDefault();
     if (validateForm(formData)) {
-      console.log(formData);
       setIsLoading(true);
       axios({
         method: "post",
         url: `${URL}api/medicin/add`,
-        data: { ...formData, auth_code },
+        data: { ...formData, auth_code, medicin_img_url: profile_pic },
       })
         .then((response) => {
           toast.success(response.data.message);
@@ -119,7 +135,33 @@ const Products = () => {
         });
     } else {
       console.log(formData);
-      console.log("Form is invalid. Please correct the errors.");
+    }
+  };
+
+  const updateProductDetails = (e) => {
+    e.preventDefault();
+    if (validateForm(formData)) {
+      setIsLoading(true);
+      axios({
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        method: "put",
+        url: `${URL}api/medicin/update`,
+        data: { ...formData, auth_code, medicin_img_url: profile_pic },
+      })
+        .then((response) => {
+          // toast.success(response.data.message);
+          toast.success("Medicin Details Updated");
+
+          getProductsList();
+          setShow(false);
+          setFormData(defaultParams);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+          setIsLoading(false);
+        });
     }
   };
 
@@ -155,7 +197,6 @@ const Products = () => {
       url: `${URL}api/pharma-company/get?auth_code=${auth_code}`,
     })
       .then((response) => {
-        console.log(response.data.data);
         setPharmaCompanyList(response.data.data);
       })
       .catch((error) => {
@@ -196,6 +237,15 @@ const Products = () => {
 
   const columns = [
     {
+      name: "#",
+      cell: (row) => (
+        <img
+          className="text-primary cursor-pointer hover:text-black font-semibold w-10 h-10"
+          src={`/../../Well_Care_Pharmacy/public/pictures/${row?.medicin_img_url}`}
+        />
+      ),
+    },
+    {
       name: "id",
       selector: (row) => row.id,
       sortable: true,
@@ -207,7 +257,7 @@ const Products = () => {
     },
     {
       name: "Price",
-      selector: (row) => row.price,
+      selector: (row) => toIndianCurrency(row.price.toString()),
       sortable: true,
     },
     {
@@ -238,17 +288,7 @@ const Products = () => {
               isLoading ? "pointer-events-none opacity-30" : ""
             }`}
             onClick={() => {
-              console.log(row, "row");
-              // console.log(row.medicin_description);
-              // console.log(row.medicin_img_url);
-              // console.log(row.price);
-              // console.log(row?.quantity);
-              // console.log(row.manufacture_date);
-              // console.log(row.expire_date);
-              // console.log(row.category_id);
-              // console.log(row.disease_id);
-              // console.log(row.medicin_pharma_company_id);
-              // console.log(row.discount);
+              console.log(row);
               setFormData((prevFormData) => ({
                 ...prevFormData,
                 medicin_name: row.medicin_name,
@@ -258,11 +298,13 @@ const Products = () => {
                 quantity: row?.quantity_unit,
                 manufacture_date: row.manufacture_date.split("T")[0],
                 expire_date: row.expire_date.split("T")[0],
-                category_id: row.category_id,
-                disease_id: row.disease_id,
-                medicin_pharma_company_id: row.medicin_pharma_company_id,
+                category_id: row.category?.id,
+                disease_id: row.disease?.id,
+                medicin_pharma_company_id: row.pharma_company?.id,
                 discount: row.discount,
+                medicin_id: row?.id,
               }));
+              setIsEdit(true);
               setShow(true);
             }}
           >
@@ -300,6 +342,7 @@ const Products = () => {
         isOpen={show}
         onClose={() => {
           setShow(false);
+          setIsEdit(false);
         }}
       >
         <div className="py-10">
@@ -353,7 +396,7 @@ const Products = () => {
                   type="file"
                   className="sr-only"
                   // value={formData.medicin_img_url || ""}
-                  onChange={handleChange}
+                  onChange={handleProfilePicChange}
                 />
               </label>
             </div>
@@ -426,7 +469,6 @@ const Products = () => {
 
           <div className="py-4">
             <label htmlFor="category_name">Medicin Category:</label>
-            {console.log(formData.category_id || "")}
             <select
               name="category_id"
               value={formData.category_id || ""}
@@ -583,12 +625,21 @@ const Products = () => {
             )}
           </div>
 
-          <button
-            className="bg-primary w-[100%] p-2 rounded text-white"
-            onClick={addProduct}
-          >
-            Add Product
-          </button>
+          {isEdit ? (
+            <button
+              className="bg-primary w-[100%] p-2 rounded text-white"
+              onClick={updateProductDetails}
+            >
+              Update
+            </button>
+          ) : (
+            <button
+              className="bg-primary w-[100%] p-2 rounded text-white"
+              onClick={addProduct}
+            >
+              Add Product
+            </button>
+          )}
         </div>
       </OffCanvas>
     </Main>

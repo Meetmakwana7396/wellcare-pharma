@@ -74,6 +74,7 @@ const StoreProfile = () => {
       data: {
         ...profileDetails,
         picture: profile_pic,
+        auth_code
       },
     })
       .then((response) => {

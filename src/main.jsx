@@ -23,6 +23,8 @@ import StoreOwnMedicin from "./pages/store/StoreOwnMedicin";
 import StoreOrders from "./pages/store/StoreOrders";
 import OrderDetails from "./pages/store/OrderDetails";
 import StoreProfile from "./pages/store/StoreProfile";
+import Orders from "./pages/Orders";
+import AdminOrderDetails from "./pages/AdminOrderDetails";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +66,14 @@ const router = createBrowserRouter([
   {
     path: "/products",
     element: <Products />,
+  },
+  {
+    path: "/orders",
+    element: <Orders />,
+  },
+  {
+    path: "/orders/admin-order-details",
+    element: <AdminOrderDetails />,
   },
 
   // Store Routes

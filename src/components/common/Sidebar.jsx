@@ -7,6 +7,7 @@ import {
   BiCabinet,
   BiInjection,
   BiCubeAlt,
+  BiCartDownload,
 } from "react-icons/bi";
 const Sidebar = () => {
   const location = useLocation();
@@ -92,6 +93,17 @@ const Sidebar = () => {
               >
                 <BiCubeAlt className="text-[25px]" />
                 <span className="flex-1 ml-3 whitespace-nowrap">Products</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/orders"
+                className={`flex items-center p-2 rounded-lg text-white hover:bg-white/10 ${
+                  currentPath === "/orders" ? "bg-white/10" : ""
+                }`}
+              >
+                <BiCartDownload className="text-[25px]" />
+                <span className="flex-1 ml-3 whitespace-nowrap">Orders</span>
               </Link>
             </li>
           </ul>
