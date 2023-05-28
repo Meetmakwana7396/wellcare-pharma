@@ -42,7 +42,6 @@ const StoreSignup = () => {
       .then((data) => {
         // Handle successful response data
         setFormData({ ...formData, picture: data });
-        console.log(file,"file");
         setPicture(URL.createObjectURL(file));
       })
       .catch((error) => {
@@ -84,7 +83,6 @@ const StoreSignup = () => {
         },
       })
         .then((response) => {
-          console.log(response.data);
           setFormData(defaultParams);
           localStorage.setItem("store_token", response.data.token);
           setisLoading(false);

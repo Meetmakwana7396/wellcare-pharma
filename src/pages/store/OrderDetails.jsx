@@ -36,7 +36,6 @@ const OrderDetails = () => {
   };
 
   useEffect(() => {
-    console.log(location?.state?.data, "order Detail");
     setOrderDetails(location?.state?.data);
     setOrderStatus(location?.state?.data?.order_tracing);
   }, [location]);

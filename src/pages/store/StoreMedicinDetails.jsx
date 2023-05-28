@@ -21,7 +21,6 @@ const StoreMedicinDetails = () => {
       url: `${URL}store/medicin/medicin-detail?medicin_id=${medID}`,
     })
       .then((response) => {
-        console.log(response.data.data);
         setMedicinDetails(response.data.data);
       })
       .catch((error) => {

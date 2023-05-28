@@ -47,7 +47,6 @@ const Products = () => {
     uploadImage(file)
       .then((data) => {
         // Handle successful response data
-        console.log(data);
         setprofile_pic(data);
       })
       .catch((error) => {
@@ -288,7 +287,6 @@ const Products = () => {
               isLoading ? "pointer-events-none opacity-30" : ""
             }`}
             onClick={() => {
-              console.log(row);
               setFormData((prevFormData) => ({
                 ...prevFormData,
                 medicin_name: row.medicin_name,
