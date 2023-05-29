@@ -39,7 +39,7 @@ const StoreOwnMedicin = () => {
       name: "Medicin Name",
       cell: (row) => (
         <Link
-          to={`/store-medicins/${row.id}`}
+          to={`/store-medicins/${row.medicin_id}`}
           className="text-primary font-semibold hover:underline"
         >
           {row?.medicin?.medicin_name}
