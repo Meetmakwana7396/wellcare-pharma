@@ -21,7 +21,7 @@ const Sidebar = () => {
     <>
       <aside
         id="default-sidebar"
-        className="sidebar bg-primary"
+        className="bg-primary w-[300px] -mr-4 pr-5"
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto">

@@ -14,7 +14,9 @@ const Main = ({ children }) => {
       <Sidebar />
       <div className="main-content">
         <Navbar />
-        <div className="border-3  p-5">{children}</div>
+        <div className="border-3 overflow-y-scroll yo p-5">
+          {children}
+        </div>
       </div>
     </div>
   );

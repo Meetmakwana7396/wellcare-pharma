@@ -8,7 +8,7 @@ import Loader from "../../components/common/Loader";
 import { BiPlusCircle } from "react-icons/bi";
 
 const defaultParams = {
-  username: "",
+  user_name: "",
   email: "",
   contact_no: "",
   address: "",
@@ -17,7 +17,7 @@ const defaultParams = {
   state: "",
   pincode: "",
   password: "",
-  picture: "",
+  picture: null,
 };
 
 const StoreSignup = () => {
@@ -38,16 +38,8 @@ const StoreSignup = () => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
 
-    uploadImage(file)
-      .then((data) => {
-        // Handle successful response data
-        setFormData({ ...formData, picture: data });
-        setPicture(URL.createObjectURL(file));
-      })
-      .catch((error) => {
-        // Handle error
-        console.log(error);
-      });
+    setFormData({ ...formData, picture: file });
+    setPicture(URL.createObjectURL(file));
   };
 
   function validateForm(formData) {
@@ -74,17 +66,23 @@ const StoreSignup = () => {
 
   const handleSignup = () => {
     if (validateForm(formData)) {
+      const data = new FormData();
+      for (const key in formData) {
+        data.append(key, formData[key]);
+      }
+
       setisLoading(true);
       axios({
         method: "post",
         url: `${url}api/store-register`,
-        data: {
-          ...formData,
-        },
+        data: data,
       })
         .then((response) => {
           setFormData(defaultParams);
-          localStorage.setItem("store_token", response.data.token);
+          toast.success(response.data.message);
+          setTimeout(() => {
+            navigate("/store-login");
+          }, 2000);
           setisLoading(false);
         })
         .catch((error) => {
@@ -116,18 +114,18 @@ const StoreSignup = () => {
             Signup to Store to get Started
           </p>
           <div className="mb-3">
-            <label htmlFor="ctnEmail">Username:</label>
+            <label htmlFor="user_name">Username:</label>
             <input
-              id="username"
+              id="user_name"
               type="text"
-              name="username"
+              name="user_name"
               placeholder="Enter Username"
               className="form-control"
               onChange={handleChange}
             />
-            {errors.username && (
+            {errors.user_name && (
               <span className="text-danger text-sm font-semibold">
-                {errors.username}
+                {errors.user_name}
               </span>
             )}
           </div>
@@ -277,7 +275,7 @@ const StoreSignup = () => {
           </div>
           <div className="relative z-0 w-full mb-6">
             <label htmlFor="">Store Picture</label>
-            <div className="flex items-center">
+            <div className="flex gap-4 items-center">
               <label
                 htmlFor="store_image"
                 className="h-20 w-20 mt-1 rounded border-black/10 border flex justify-center items-center cursor-pointer shadow-md"
@@ -289,9 +287,17 @@ const StoreSignup = () => {
                 name="picture"
                 id="store_image"
                 className="hidden"
-                value={picture || null}
                 onChange={handleImageChange}
               />
+
+              {picture && (
+                <img
+                  src={picture}
+                  alt=""
+                  className="h-20 w-20 object-cover mt-1 rounded border-black/10 border flex justify-center items-center cursor-pointer shadow-md"
+                  srcset=""
+                />
+              )}
             </div>
           </div>
           <button

@@ -8,7 +8,7 @@ const StoreMain = ({ children }) => {
       <StoreSidebar />
       <div className="main-content">
         <StoreNavbar />
-        <div className="border-3  p-5">{children}</div>
+        <div className="overflow-y-scroll yo p-5">{children}</div>
       </div>
     </div>
   );

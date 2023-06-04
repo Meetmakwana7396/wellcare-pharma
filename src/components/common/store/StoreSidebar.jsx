@@ -21,11 +21,11 @@ const StoreSidebar = () => {
   return (
     <>
       <aside
-        id="default-sidebar"
-        className="sidebar bg-success"
+        id="default-sidebar "
+        className="bg-success w-[300px] -mr-4 pr-4"
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto">
+        <div className=" overflow-auto h-full px-3 py-4">
           <ul className="space-y-2 font-medium">
             <li>
               <Link

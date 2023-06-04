@@ -1,23 +1,25 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { URL as url, auth_code, uploadImage } from "../../../baseurl";
+import { URL as url } from "../../../baseurl";
 import Loader from "../../components/common/Loader";
 import StoreMain from "../../components/common/store/StoreMain";
 
+const defaultParams = {
+  user_name: "",
+  email: "",
+  contact_number: "",
+  address: "",
+  area: "",
+  city: "",
+  state: "",
+  pincode: "",
+  picture: null,
+};
+
 const StoreProfile = () => {
   const [profilePic, setProfilePic] = useState(null);
-  const [profile_pic, setprofile_pic] = useState("");
-  const [profileDetails, setProfileDetails] = useState({
-    user_name: "",
-    email: "",
-    contact_number: "",
-    address: "",
-    area: "",
-    city: "",
-    state: "",
-    pincode: "",
-  });
+  const [profileDetails, setProfileDetails] = useState(defaultParams);
   const [isLoading, setIsLoading] = useState(false);
 
   const getProfileDetail = () => {
@@ -43,27 +45,26 @@ const StoreProfile = () => {
           state: profile?.state,
           pincode: profile?.pincode,
         });
+        setProfilePic(profile.profile_pic);
       })
       .catch((error) => {
         console.log(error, "kkooll");
       });
   };
 
-  const handleProfilePicChange = (event) => {
+  const handleImageChange = (event) => {
     const file = event.target.files[0];
-    uploadImage(file)
-      .then((data) => {
-        // Handle successful response data
-        setprofile_pic(data);
-      })
-      .catch((error) => {
-        // Handle error
-        console.log(error);
-      });
+
+    setProfileDetails({ ...profileDetails, picture: file });
     setProfilePic(URL.createObjectURL(file));
   };
+  console.log(profilePic);
 
   const handleProfileUpdate = useCallback(async () => {
+    const data = new FormData();
+    for (const key in profileDetails) {
+      data.append(key, profileDetails[key]);
+    }
     setIsLoading(true);
     await axios({
       headers: {
@@ -71,11 +72,7 @@ const StoreProfile = () => {
       },
       method: "post",
       url: `${url}store/update-profile`,
-      data: {
-        ...profileDetails,
-        picture: profile_pic,
-        auth_code
-      },
+      data: data,
     })
       .then((response) => {
         toast.success(response.data.message);
@@ -115,9 +112,9 @@ const StoreProfile = () => {
           <input
             type="file"
             id="profile-pic-input"
-            name="profile-pic"
+            name="picture"
             className="hidden"
-            onChange={handleProfilePicChange}
+            onChange={handleImageChange}
           />
 
           <div className="grid grid-cols-2 mt-4  gap-4">
