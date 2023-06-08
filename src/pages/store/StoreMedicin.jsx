@@ -84,7 +84,7 @@ const StoreMedicin = () => {
           setShow(false);
         })
         .catch((error) => {
-          console.log(error, "kkooll");
+          toast.error(error.response.data.message);
         });
     }
   };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { auth_code, uploadImage, URL } from "../../baseurl";
+import { ADMIN_IMG_URL, auth_code, uploadImage, URL } from "../../baseurl";
 import Main from "../components/common/Main";
 import MyTable from "../components/common/MyTable";
 import OffCanvas from "../components/common/OffCanvas";
@@ -239,8 +239,8 @@ const Products = () => {
       name: "#",
       cell: (row) => (
         <img
-          className="text-primary cursor-pointer hover:text-black font-semibold w-10 h-10"
-          src={`/../../Well_Care_Pharmacy/public/pictures/${row?.medicin_img_url}`}
+          className="text-primary cursor-pointer hover:text-black rounded object-cover w-10 h-10"
+          src={ADMIN_IMG_URL + row?.medicin_img_url}
         />
       ),
     },

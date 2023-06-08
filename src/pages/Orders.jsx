@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Main from "../components/common/Main";
-import { auth_code, URL } from "../../baseurl";
+import { ADMIN_IMG_URL, auth_code, URL } from "../../baseurl";
 import MyTable from "../components/common/MyTable";
 import { useEffect } from "react";
 import {
@@ -61,8 +61,8 @@ const Orders = () => {
       name: "#",
       cell: (row) => (
         <img
-          className="text-primary cursor-pointer hover:text-black font-semibold w-10 h-10"
-          src={row?.medicin?.medicin_img_url}
+          className="text-primary cursor-pointer rounded hover:text-black object-cover w-10 h-10"
+          src={ADMIN_IMG_URL + row?.medicin?.medicin_img_url}
         />
       ),
     },

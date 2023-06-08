@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { URL } from "../../../../baseurl";
+import { ADMIN_IMG_URL, URL } from "../../../../baseurl";
 
 const StoreNavbar = () => {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ const StoreNavbar = () => {
           onClick={handleMenuVisibility}
           datadropdownplacement="userDropdown"
           className="w-10 h-10 rounded-full cursor-pointer"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXFBOfk-8mYVPpg23ixdQ8WfID6Jy23Kw_aTy-NcZmhA&s"
+          src={ADMIN_IMG_URL + profileDetails?.profile_pic}
           alt="User dropdown"
         />
 
